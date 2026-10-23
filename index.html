@@ -7,13 +7,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" type="image/png" href="assets/bbicon.png" />
   <title>Supharada Jundok | Keira J. 李沛妤 </title>
-  <meta name="description" content="Machine Learning researcher specializing in Computer Vision, AI Safety, and Few-Shot Learning. M.S. student at National Cheng Kung University (NCKU), Taiwan.">
-  <meta name="keywords" content="Supharada Jundok, Keira J., Machine Learning, Computer Vision, AI Safety, Few-Shot Learning, UAV Remote Sensing, NCKU, NDHU, Taiwan">
+  <meta name="description" content="Supharada Jundok (Keira J., 李沛妤) — Machine Learning researcher specializing in Computer Vision, AI Safety, and Few-Shot Learning. M.S. student at National Cheng Kung University (NCKU), Taiwan.">
+  <meta name="keywords" content="Supharada Jundok, Keira J. 李沛妤, Machine Learning, Computer Vision, AI Safety, Few-Shot Learning, UAV Remote Sensing, NCKU, NDHU, Taiwan">
+  <meta property="og:type" content="profile">
+  <meta property="og:title" content="Supharada Jundok | Keira J. 李沛妤">
+  <meta property="og:description" content="Supharada Jundok — Machine Learning researcher, M.S. student at NCKU, Taiwan.">
+  <meta property="og:url" content="https://mato8q.github.io/">
+  <meta property="og:image" content="https://mato8q.github.io/assets/grad_profile.jpg">
+  <meta property="profile:first_name" content="Supharada">
+  <meta property="profile:last_name" content="Jundok">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Supharada Jundok",
+    "givenName": "Supharada",
+    "familyName": "Jundok",
     "alternateName": "Keira J., 李沛妤",
     "url": "https://mato8q.github.io/",
     "image": "https://mato8q.github.io/assets/grad_profile.jpg",
@@ -112,20 +121,20 @@
     }
     .stage {
       position: relative;
-      width: min(322px, 90vw);
-      height: min(286px, 80vw);
+      width: min(286px, 90vw);
+      height: min(358px, 100vw);
       cursor: crosshair;
       margin: 0 auto; display: flex; align-items: center; justify-content: center;
     }
     .cw {
       display: grid;
-      grid-template-columns: repeat(9, clamp(26px, calc(90vw / 9 - 2px), 34px));
-      grid-template-rows: repeat(8, clamp(26px, calc(90vw / 9 - 2px), 34px));
+      grid-template-columns: repeat(8, clamp(26px, calc(90vw / 10 - 2px), 34px));
+      grid-template-rows: repeat(10, clamp(26px, calc(90vw / 10 - 2px), 34px));
       gap: 2px; position: absolute;
     }
     .cl {
-      width: clamp(26px, calc(90vw / 9 - 2px), 34px);
-      height: clamp(26px, calc(90vw / 9 - 2px), 34px);
+      width: clamp(26px, calc(90vw / 10 - 2px), 34px);
+      height: clamp(26px, calc(90vw / 10 - 2px), 34px);
       display: flex; align-items: center; justify-content: center;
       font-family: var(--mono); font-size: .78rem; font-weight: 500; position: relative;
       transition: transform .5s cubic-bezier(.4,0,.2,1), opacity .4s ease, background .15s;
@@ -372,7 +381,7 @@
 
 <!-- ── Nav ─────────────────────────────────────────────────────────────── -->
 <nav id="nav">
-  <a class="nav-bear" href="#top"><img src="assets/bbicon.png" alt="Keira J."></a>
+  <a class="nav-bear" href="#top"><img src="assets/bbicon.png" alt="Supharada Jundok (Keira J. 李沛妤)"></a>
   <ul class="nav-links" id="nav-links">
     <li><a href="#bio">bio</a></li>
     <li><a href="#projects">projects</a></li>
@@ -400,7 +409,7 @@
     <span class="sec-label">Bio</span>
     <div class="bio-layout">
       <div class="bio-photo-wrap">
-        <img class="bio-photo" src="assets/grad_profile.jpg" alt="Keira J.">
+        <img class="bio-photo" src="assets/grad_profile.jpg" alt="Supharada Jundok (Keira J. 李沛妤)">
         <div class="bio-card-id">
           <div class="bio-card-role">ML Researcher</div>
           <div class="bio-card-inst">CSIE M.S. student @ NCKU, TW</div>
@@ -737,23 +746,25 @@ window.addEventListener('scroll', () => {
 
 // ── Crossword grid ─────────────────────────────────────────────────────
 const G = [
-  ['C','T','F',null,null,null,'T',null,'D'],
-  [null,null,null,null,'D',null,'A',null,'A'],
-  ['M','L',null,null,'E',null,'I',null,'T'],
-  [null,null,null,null,'S',null,'W',null,'A'],
-  [null,null,'K','E','I','R','A',null,null],
-  [null,null,null,null,'G',null,'N',null,null],
-  ['A','I',null,null,'N',null,null,null,null],
-  ['M','U','A','Y','T','H','A','I',null],
-];
-const NUMS = {'0,0':1,'0,6':2,'0,8':3,'1,4':4,'2,0':5,'4,2':6,'6,0':7,'7,0':8};
+  '..D.....',
+  '..E.M...',
+  '..S.U...',
+  'KEIRA...',
+  '..G.Y...',
+  '..N.T...',
+  '....H.ML',
+  '....A.E.',
+  'SURVIVOR',
+  '......W.',
+].map(row => [...row].map(ch => ch === '.' ? null : ch));
+const NUMS = {'0,2':1,'1,4':2,'3,0':3,'6,6':4,'8,0':5};
 
 const cwEl   = document.getElementById('cw');
 const stage  = document.getElementById('stage');
 const filled = [];
 
-for (let r = 0; r < 8; r++) {
-  for (let c = 0; c < 9; c++) {
+for (let r = 0; r < G.length; r++) {
+  for (let c = 0; c < G[0].length; c++) {
     const d  = document.createElement('div');
     const ch = G[r][c];
     d.className = 'cl ' + (ch ? 'f' : 'e');
