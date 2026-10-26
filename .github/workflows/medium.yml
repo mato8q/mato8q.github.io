@@ -1,0 +1,43 @@
+name: Update Medium articles
+
+on:
+  schedule:
+    - cron: '17 1 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch Medium feed
+        run: |
+          python3 - <<'PY'
+          import json, re, urllib.request, xml.etree.ElementTree as ET
+          from email.utils import parsedate_to_datetime
+
+          req = urllib.request.Request('https://medium.com/feed/@mato8q', headers={'User-Agent': 'Mozilla/5.0 (articles bot)'})
+          xml = urllib.request.urlopen(req, timeout=30).read()
+
+          ns = {'content': 'http://purl.org/rss/1.0/modules/content/'}
+          items = []
+          for it in ET.fromstring(xml).iter('item'):
+              html = it.findtext('content:encoded', '', ns) or it.findtext('description', '')
+              img = re.search(r'<img[^>]+src="([^">]+)"', html)
+              date = parsedate_to_datetime(it.findtext('pubDate')).strftime('%Y-%m-%d %H:%M:%S')
+              items.append({'title': it.findtext('title', ''), 'link': it.findtext('link', ''),
+                            'pubDate': date, 'thumbnail': img.group(1) if img else ''})
+
+          with open('articles.json', 'w', encoding='utf-8') as f:
+              json.dump({'status': 'ok', 'items': items}, f, ensure_ascii=False, indent=2)
+          print(len(items), 'articles')
+          PY
+      - name: Commit if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add articles.json
+          git diff --cached --quiet || (git commit -m "Update Medium articles" && git push)
