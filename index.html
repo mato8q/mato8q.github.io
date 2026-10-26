@@ -888,7 +888,7 @@ async function loadArticles() {
         </div>`;
       container.appendChild(card);
     });
-  } catch {
+  } catch (err) { console.warn('Medium articles:', err);
     container.innerHTML = '<p style="font-size:.82rem;color:var(--mid);">Could not load articles.</p>';
   }
 }
