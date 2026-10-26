@@ -870,7 +870,7 @@ async function loadArticles() {
     data.items.slice(0, 5).forEach(item => {
       let thumb = item.thumbnail;
       if (!thumb || thumb.includes('stat?event')) {
-        const m = item.content.match(/<img[^>]+src="([^">]+)"/);
+        const m = (item.content || item.description || '').match(/<img[^>]+src="([^">]+)"/);
         if (m) thumb = m[1];
       }
       const card = document.createElement('a');
@@ -884,7 +884,7 @@ async function loadArticles() {
       card.innerHTML += `
         <div class="article-body">
           <div class="article-title">${item.title}</div>
-          <div class="article-date">${new Date(item.pubDate).toDateString()}</div>
+          <div class="article-date">${new Date(item.pubDate.replace(' ', 'T')).toDateString()}</div>
         </div>`;
       container.appendChild(card);
     });
